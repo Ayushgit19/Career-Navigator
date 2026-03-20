@@ -12,6 +12,10 @@ app.use(express.json());
 
 app.use("/api", aiRoutes);
 
-app.listen(5000, () => {
-  console.log("Server running on 5000");
+app.get("/", (req, res) => {
+  res.send("API running");
 });
+
+// app.listen(5000, () => {
+//   console.log("Server running on 5000");
+// });
