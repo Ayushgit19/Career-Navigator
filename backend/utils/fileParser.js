@@ -1,4 +1,3 @@
-import fs from "fs";
 import mammoth from "mammoth";
 import { createRequire } from "module";
 
@@ -8,18 +7,17 @@ export async function extractTextFromFile(file) {
   const ext = file.originalname.split(".").pop().toLowerCase();
 
   if (ext === "txt") {
-    return fs.readFileSync(file.path, "utf-8");
+    return file.buffer.toString("utf-8");
   }
 
   if (ext === "pdf") {
     const pdfParse = require("pdf-parse/lib/pdf-parse.js");
-    const buffer = fs.readFileSync(file.path);
-    const data = await pdfParse(buffer);
+    const data = await pdfParse(file.buffer); // ✅ use buffer directly
     return data.text;
   }
 
   if (ext === "docx") {
-    const result = await mammoth.extractRawText({ path: file.path });
+    const result = await mammoth.extractRawText({ buffer: file.buffer }); // ✅ use buffer
     return result.value;
   }
 
