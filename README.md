@@ -4,7 +4,7 @@ An AI-powered career development platform built for tech professionals. Get pers
 
 **🌐 Live Demo:** [career-navigator-frontend-eight.vercel.app](https://career-navigator-frontend-eight.vercel.app)
 
-**🎬 Demo Video:** [YouTube Link](#) <!-- Replace with your YouTube link -->
+**🎬 Demo Video:** [YouTube Link](https://www.youtube.com/watch?v=P9Qoh3Xc6lg) <!-- Replace with your YouTube link -->
 
 ---
 
