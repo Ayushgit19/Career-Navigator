@@ -1,0 +1,52 @@
+{
+  "description": "Synthetic sample data demonstrating Skill-Bridge Career Navigator inputs and AI-generated outputs. No real personal data used.",
+  
+  "career_chat_samples": [
+    {
+      "input": {
+        "role": "Full Stack Developer",
+        "experience": "Mid Level (3-5 years)",
+        "focus": "Job Applications",
+        "message": "How do I prepare for a FAANG interview?"
+      },
+      "ai_response_summary": "Structured roadmap covering DSA practice, system design, behavioral questions, and a 3-month prep timeline."
+    }
+  ],
+
+  "resume_analysis_samples": [
+    {
+      "input_resume_snippet": "Ayush Kumar | React, Node.js, MongoDB | Built e-commerce platform with 10k users",
+      "ai_feedback_summary": "Add measurable metrics, include keywords like REST API and CI/CD, improve summary section for ATS compatibility."
+    }
+  ],
+
+  "interview_prep_samples": [
+    {
+      "input": {
+        "experience": "Mid Level (3-5 years)",
+        "company": "Google",
+        "size": "Enterprise (10,000+ employees)"
+      },
+      "sample_questions": [
+        "Design a URL shortener that handles 100M requests/day.",
+        "Tell me about a time you resolved a conflict in your team.",
+        "What is the difference between SQL and NoSQL? When would you use each?"
+      ]
+    }
+  ],
+
+  "skill_gap_samples": [
+    {
+      "input": {
+        "role": "Full Stack Developer",
+        "current_skills": "React, Node.js, MongoDB, HTML, CSS"
+      },
+      "gaps_identified": ["TypeScript", "Docker", "System Design", "AWS basics"],
+      "recommended_resources": [
+        "TypeScript Handbook — typescriptlang.org",
+        "Docker Getting Started Guide",
+        "Grokking System Design — educative.io"
+      ]
+    }
+  ]
+}
