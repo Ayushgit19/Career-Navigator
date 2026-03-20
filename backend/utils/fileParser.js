@@ -1,6 +1,8 @@
 import fs from "fs";
 import mammoth from "mammoth";
-import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf.mjs";
+import { createRequire } from "module";
+
+const require = createRequire(import.meta.url);
 
 export async function extractTextFromFile(file) {
   const ext = file.originalname.split(".").pop().toLowerCase();
@@ -10,18 +12,10 @@ export async function extractTextFromFile(file) {
   }
 
   if (ext === "pdf") {
+    const pdfParse = require("pdf-parse/lib/pdf-parse.js");
     const buffer = fs.readFileSync(file.path);
-    const uint8Array = new Uint8Array(buffer);
-    const loadingTask = pdfjsLib.getDocument({ data: uint8Array });
-    const pdfDoc = await loadingTask.promise;
-
-    let text = "";
-    for (let i = 1; i <= pdfDoc.numPages; i++) {
-      const page = await pdfDoc.getPage(i);
-      const content = await page.getTextContent();
-      text += content.items.map((item) => item.str).join(" ") + "\n";
-    }
-    return text;
+    const data = await pdfParse(buffer);
+    return data.text;
   }
 
   if (ext === "docx") {
