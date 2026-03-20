@@ -156,15 +156,6 @@ The backend follows a clean MVC-like structure:
 - `services/` — abstracts the Gemini API calls
 - `config/` — manages the Gemini client initialization
 
-**Serverless-first Architecture**
-The backend is designed for Vercel's serverless environment:
-- No persistent file storage (memory-based approach)
-- `app.listen` is separated into `index.js` for local development
-- `server.js` exports the Express app for Vercel
-
-**Environment-based Configuration**
-- Frontend uses `.env` (local) and `.env.production` (deployment), with Vite automatically selecting the correct file at build time
-- All API keys are stored in environment variables, never hardcoded
 
 ---
 
@@ -248,25 +239,17 @@ Requires a `vercel.json` in the backend folder:
 
 **Solution:** Removed file upload functionality entirely. Users paste resume text directly, eliminating the dependency on PDF parsing libraries. This simplified the codebase and improved reliability.
 
-### 2. Gemini API Rate Limits
-**Challenge:** Free tier quota exhaustion caused 429 errors during development.
 
-**Solution:** Switched to `gemini-2.0-flash-lite` which offers a more generous free tier, and created a new Google Cloud project with a fresh API key.
-
-### 3. ESM/CJS Module Conflicts
+### 2. ESM/CJS Module Conflicts
 **Challenge:** Several Node.js packages had conflicts between ES Modules and CommonJS in the backend.
 
 **Solution:** Used dynamic `import()` for problematic packages and `createRequire` from the `module` package where needed.
 
-### 4. CORS on Deployment
+### 3. CORS on Deployment
 **Challenge:** Frontend on one Vercel domain couldn't reach backend on another due to CORS restrictions.
 
 **Solution:** Configured explicit CORS origins in `server.js` to allow both `localhost:5173` (development) and the production frontend URL.
 
-### 5. Environment Variables
-**Challenge:** Vite requires `VITE_` prefix for env variables exposed to the browser.
-
-**Solution:** Used `VITE_BACKEND_API` with `.env` for local and `.env.production` for deployment. Vite automatically selects the correct file at build time.
 
 ---
 
