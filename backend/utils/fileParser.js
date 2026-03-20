@@ -1,7 +1,5 @@
+import fs from "fs";
 import mammoth from "mammoth";
-import { createRequire } from "module";
-
-const require = createRequire(import.meta.url);
 
 export async function extractTextFromFile(file) {
   const ext = file.originalname.split(".").pop().toLowerCase();
@@ -11,13 +9,15 @@ export async function extractTextFromFile(file) {
   }
 
   if (ext === "pdf") {
-    const pdfParse = require("pdf-parse/lib/pdf-parse.js");
-    const data = await pdfParse(file.buffer); // ✅ use buffer directly
+    // This env variable disables the test file that causes the bug
+    process.env.PDF_PARSE_NO_TEST = "true";
+    const pdfParse = (await import("pdf-parse")).default;
+    const data = await pdfParse(file.buffer);
     return data.text;
   }
 
   if (ext === "docx") {
-    const result = await mammoth.extractRawText({ buffer: file.buffer }); // ✅ use buffer
+    const result = await mammoth.extractRawText({ buffer: file.buffer });
     return result.value;
   }
 
