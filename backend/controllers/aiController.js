@@ -1,5 +1,4 @@
 import { generateFromGemini } from "../services/geminiServices.js";
-import { extractTextFromFile } from "../utils/fileParser.js";
 
 export async function careerChat(req, res) {
   try {
@@ -46,16 +45,11 @@ Reply as mentor.
 // Resume analysis
 export async function resumeAnalysis(req, res) {
   try {
-    let resumeText = req.body.resumeText;
-    console.log("resumeText:", resumeText);       // 👈
-    console.log("file:", req.file);
+    const { resumeText } = req.body;
 
-    // if file uploaded
-    if (req.file) {
-      resumeText = await extractTextFromFile(req.file);
+    if (!resumeText) {
+      return res.status(400).json({ error: "No resume text provided" });
     }
-
-    console.log("Parsed the resume")
 
     const prompt = `
 Analyze this resume:
@@ -66,7 +60,6 @@ Give ATS suggestions, improvements, and missing skills.
 `;
 
     const text = await generateFromGemini(prompt);
-
     res.json({ response: text });
   } catch (err) {
     console.error("resumeAnalysis error:", err);
